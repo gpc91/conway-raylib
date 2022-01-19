@@ -14,8 +14,7 @@ int main(void)
     {
         for (int _x = 0; _x < scrW; _x++)
         {
-            //grid[_x][_y] = GetRandomValue(0, 1);
-            grid[_x][_y] = 0;
+            grid[_x][_y] = GetRandomValue(0, 1);            
             gridBuffer[_x][_y] = grid[_x][_y];
         }
     }
@@ -148,27 +147,21 @@ int main(void)
             ClearBackground(BLACK);  
 
             DrawText(TextFormat("%i", trigger_draw), 4, 124, 24, WHITE);
-
-            // draw grid
-            //if (trigger_draw == true) // This is currently broke
-            //{                               
-                for (int _y = 0; _y < scrH; _y++)
+            for (int _y = 0; _y < scrH; _y++)
+            {
+                for (int _x = 0; _x < scrW; _x++)
                 {
-                    for (int _x = 0; _x < scrW; _x++)
+                    grid[_x][_y] = gridBuffer[_x][_y];
+                    if (grid[_x][_y])
                     {
-                        grid[_x][_y] = gridBuffer[_x][_y];
-                        if (grid[_x][_y])
-                        {
-                            DrawPixel(_x, _y, WHITE); 
-                        }
-                        else
-                        {
-                            DrawPixel(_x, _y, BLACK); 
-                        }                       
+                        DrawPixel(_x, _y, WHITE); 
                     }
+                    else
+                    {
+                        DrawPixel(_x, _y, BLACK); 
+                    }                       
                 }
-                trigger_draw = false;
-            //}
+            }
             DrawFPS(4, 4);
             
             //DrawText(TextFormat("%f", time_elapsed), 100, 100, 48, WHITE);
